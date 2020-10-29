@@ -86,21 +86,13 @@ class Direcao:
 
     @classmethod
     def girar_a_direita(cls):
-        if cls.posicao_tupla < 3:
-            cls.posicao_tupla += 1
-            cls.valor = cls.posicao[cls.posicao_tupla]
-        else:
-            cls.posicao_tupla = 0
-            cls.valor = cls.posicao[cls.posicao_tupla]
+       cls.posicao_tupla += 1
+       cls.valor = cls.posicao[cls.posicao_tupla % len(cls.posicao)]
 
     @classmethod
     def girar_a_esquerda(cls):
-        if cls.posicao_tupla > 0:
             cls.posicao_tupla -= 1
-            cls.valor = cls.posicao[cls.posicao_tupla]
-        else:
-            cls.posicao_tupla = 3
-            cls.valor = cls.posicao[cls.posicao_tupla]
+            cls.valor = cls.posicao[cls.posicao_tupla % len(cls.posicao)]
 
 class Motor:
     velocidade = 0
@@ -109,10 +101,12 @@ class Motor:
     def acelerar(cls):
         cls.velocidade += 1
 
+
     @classmethod
     def frear(cls):
-        if cls.velocidade > 0:
-            cls.velocidade -= 1
+        cls.velocidade -= 1
+        #se o valor for menor que 0, coloca o 0 como maior valor
+        cls.velocidade = max(0, cls.velocidade)
 
 
 class Carro:
